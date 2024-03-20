@@ -27,10 +27,17 @@
 - (void)getNativeImageTask:(FlutterMethodCall *)call result:(FlutterResult)result {
     NSString *name = call.arguments[@"imageName"];
     dispatch_async(dispatch_get_global_queue(0, 0), ^{
+        double compression = 1.0;
+        if (call.arguments[@"compression"]) {
+            compression = [call.arguments[@"compression"] doubleValue];
+        }
         UIImage *image = [UIImage imageNamed:name];
-        NSData *data = UIImagePNGRepresentation(image);
+        NSData *data = UIImageJPEGRepresentation(image, compression);
         
-        NSUInteger maxLength = 1024;
+//        NSString *path = [[NSBundle mainBundle] pathForResource:@"AZ7A6708" ofType:@"JPG"];
+//        NSData *data = [NSData dataWithContentsOfFile:path];
+        
+        NSUInteger maxLength = 1024*1024 << 2;
         NSUInteger totalLength = data.length;
         int count = ceil((totalLength*1.0)/maxLength);
         for (int i = 0; i < count; i++) {

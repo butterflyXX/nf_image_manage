@@ -106,6 +106,13 @@
 			path = RunnerTests;
 			sourceTree = "<group>";
 		};
+		719915AB2BA95CCE00100994 /* assets */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = assets;
+			sourceTree = "<group>";
+		};
 		8554980AB5D0BBBB7761342B /* Pods */ = {
 			isa = PBXGroup;
 			children = (
@@ -116,7 +123,6 @@
 				56044D2DA01386E96172760F /* Pods-RunnerTests.release.xcconfig */,
 				9D9C5FF923DD3199E6EEC204 /* Pods-RunnerTests.profile.xcconfig */,
 			);
-			name = Pods;
 			path = Pods;
 			sourceTree = "<group>";
 		};
@@ -134,6 +140,7 @@
 		97C146E51CF9000F007C117D = {
 			isa = PBXGroup;
 			children = (
+				719915AB2BA95CCE00100994 /* assets */,
 				9740EEB11CF90186004384FC /* Flutter */,
 				97C146F01CF9000F007C117D /* Runner */,
 				331C80F2294D02FB00263BE5 /* RunnerTests */,
