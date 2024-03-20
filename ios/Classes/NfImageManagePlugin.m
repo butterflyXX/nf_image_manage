@@ -1,4 +1,5 @@
 #import "NfImageManagePlugin.h"
+#import "NFImageManage.h"
 
 @interface NfImageManagePlugin ()
 
@@ -13,6 +14,7 @@
             binaryMessenger:[registrar messenger]];
   NfImageManagePlugin* instance = [[NfImageManagePlugin alloc] init];
     instance.channel = channel;
+    [NFImageManage setChannel:channel];
   [registrar addMethodCallDelegate:instance channel:channel];
 }
 
@@ -20,8 +22,28 @@
   if ([@"getNativeImage" isEqualToString:call.method]) {
       [self getNativeImageTask:call result:result];
   } else if ([@"flutterImage" isEqualToString:call.method]) {
-    result(FlutterMethodNotImplemented);
+    [self receiveFlutterImage:call result:result];
   }
+}
+
+-(void)receiveFlutterImage:(FlutterMethodCall *)call result:(FlutterResult)result {
+    NSDictionary *arg = call.arguments;
+    NSString *key = arg[@"id"];
+    NSString *index = arg[@"index"];
+    FlutterStandardTypedData *subData = arg[@"data"];
+    NSInteger length = [arg[@"length"] integerValue];
+    NSInteger partCount = [arg[@"partCount"] integerValue];
+    
+    FlutterImageTaskItem *task = [NFImageManage getTaskWithKey:key];
+    if (task) {
+        task.datas[index] = subData.data;
+        task.length = length;
+        task.partCount = partCount;
+              if (partCount == task.datas.count) {
+                [task doTask];
+                  [NFImageManage addCache];
+              }
+    }
 }
 
 - (void)getNativeImageTask:(FlutterMethodCall *)call result:(FlutterResult)result {
@@ -53,7 +75,7 @@
             }
             dispatch_async(dispatch_get_main_queue(), ^{
                 [self.channel invokeMethod:@"nativeImage" arguments:@{@"id":name,
-                                                                      @"index":@(i),
+                                                                      @"index":@(i).description,
                                                                       @"data":subData,
                                                                       @"length":@(totalLength),
                                                                       @"partCount":@(count),

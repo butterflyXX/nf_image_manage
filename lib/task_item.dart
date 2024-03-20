@@ -25,14 +25,14 @@ class TaskItem {
     fullData = finalData;
     while (_callBacks.isNotEmpty) {
       final callBack = _callBacks.removeLast();
-      nfPrint("走的channel");
+      nfPrint("flutter -- 走的channel");
       callBack(finalData);
     }
   }
 
   void addTaskCallBack(ValueChanged<Uint8List?> callBack) {
     if (fullData != null) {
-      nfPrint("走的缓存");
+      nfPrint("flutter -- 走的缓存");
       callBack(fullData);
     } else {
       _callBacks.add(callBack);

@@ -14,6 +14,7 @@
     self = [super init];
     if (self) {
         self.datas = [[NSMutableDictionary alloc] init];
+        self.callBacks = [[NSMutableArray alloc] init];
     }
     return self;
 }
@@ -23,7 +24,30 @@
     for (int i = 0; i < _datas.count; i++) {
         [data appendData:_datas[@(i).description]];
     }
-    self.callBack(data);
+    [self.datas removeAllObjects];
+    self.fullData = data;
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(4 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+        while (self.callBacks.count > 0) {
+            self.callBacks.lastObject(data);
+            [self.callBacks removeLastObject];
+        }
+    });
+}
+
+-(void)addTaskCallBackWithCallBack:(CallBack) callBack {
+    if (self.fullData) {
+        callBack(self.fullData);
+    } else {
+        [self.callBacks addObject:callBack];
+        
+    }
+}
+
+-(void)removeTaskCallBackWithCallBack:(CallBack) callBack {
+    if ([self.callBacks containsObject:callBack]) {
+        NSLog(@"-----");
+    }
+    [self.callBacks removeObject:callBack];
 }
 
 @end

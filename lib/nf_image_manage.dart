@@ -66,7 +66,7 @@ class NfImageManage {
       task.length = length;
       task.partCount = partCount;
       if (partCount == task.datas.length) {
-        _instance._imageDataStream[key]?.doCallBack();
+        task.doCallBack();
         _instance._cacheCount++;
         nfPrint("缓存数量${_instance._cacheCount}");
         if (_instance._cacheCount >= _maxCache) {
@@ -86,7 +86,7 @@ class NfImageManage {
       final Uint8List slice = data.buffer.asUint8List();
       _channel.invokeMethod('flutterImage', {
         "id": name,
-        "index": i,
+        "index": i.toString(),
         "data": slice,
         "length": data.lengthInBytes,
         "partCount": count,

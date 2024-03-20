@@ -9,13 +9,20 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
+typedef void(^CallBack)(NSData *data);
 @interface FlutterImageTaskItem : NSObject
 
 @property(nonatomic, strong) NSMutableDictionary<NSString *,NSData *> *datas;
-@property(nonatomic, copy) void(^callBack)(NSData *data);
+@property(nonatomic, strong) NSMutableArray<CallBack> *callBacks;
 @property(nonatomic, assign) NSInteger length;
+@property(nonatomic, assign) NSInteger partCount;
+@property(nonatomic, strong) NSData *fullData;
 
 -(void)doTask;
+
+-(void)addTaskCallBackWithCallBack:(CallBack) callBack;
+
+-(void)removeTaskCallBackWithCallBack:(CallBack) callBack;
 
 @end
 

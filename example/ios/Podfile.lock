@@ -2,13 +2,19 @@ PODS:
   - Flutter (1.0.0)
   - integration_test (0.0.1):
     - Flutter
+  - Masonry (1.1.0)
   - nf_image_manage (0.0.1):
     - Flutter
 
 DEPENDENCIES:
   - Flutter (from `Flutter`)
   - integration_test (from `.symlinks/plugins/integration_test/ios`)
+  - Masonry
   - nf_image_manage (from `.symlinks/plugins/nf_image_manage/ios`)
+
+SPEC REPOS:
+  trunk:
+    - Masonry
 
 EXTERNAL SOURCES:
   Flutter:
@@ -21,8 +27,9 @@ EXTERNAL SOURCES:
 SPEC CHECKSUMS:
   Flutter: e0871f40cf51350855a761d2e70bf5af5b9b5de7
   integration_test: 13825b8a9334a850581300559b8839134b124670
+  Masonry: 678fab65091a9290e40e2832a55e7ab731aad201
   nf_image_manage: 600df1df890ef0764d6f7375c0a118e5034e4287
 
-PODFILE CHECKSUM: 6e700dec67e6deac9b1c69bb14c49a2217a12d15
+PODFILE CHECKSUM: f96f42384c1894961f6090eb23739e47bb8f1569
 
 COCOAPODS: 1.15.2

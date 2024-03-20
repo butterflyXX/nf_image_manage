@@ -56,7 +56,7 @@ class _HomePageState extends State<HomePage> {
         itemCount: data.length,
         itemBuilder: (_,index) {
           // return SizedBox(height: 200,child: Center(child: Text("123"),),);
-          return Container(child: NativeImageBuilder(name: data[index],height: 400,),color: Colors.green,);
+          return Container(child: NativeImageBuilder(name: data[index],height: 400,),);
         },
       ),
     );

@@ -7,19 +7,23 @@
 
 #import <Foundation/Foundation.h>
 #import "FlutterImageTaskItem.h"
-
-NS_ASSUME_NONNULL_BEGIN
+#import <Flutter/Flutter.h>
 
 
 
 @interface NFImageManage : NSObject
 
-@property(nonatomic, strong) NSMutableDictionary<NSString *, FlutterImageTaskItem *> *tasks;
-
 + (instancetype)shared;
 
-+(void)getImageWithImageName:(NSString *)imageName callBack:(void(^)(NSData *data)) callBack;
++(void)setChannel:(FlutterMethodChannel *)channel;
+
++(FlutterImageTaskItem *)getFlutterImageWithImageName:(NSString *)imageName
+                                          packageName:(NSString *)packageName
+                                          compression:(double) compression
+                                             callBack:(CallBack) callBack;
+
++(FlutterImageTaskItem *)getTaskWithKey:(NSString *)key;
+
++(void)addCache;
 
 @end
-
-NS_ASSUME_NONNULL_END
