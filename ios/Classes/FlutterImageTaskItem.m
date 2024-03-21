@@ -28,22 +28,22 @@
     self.fullData = data;
     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(4 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
         while (self.callBacks.count > 0) {
-            self.callBacks.lastObject(data);
+            [self.callBacks.lastObject doCallBack:data];
             [self.callBacks removeLastObject];
         }
     });
 }
 
--(void)addTaskCallBackWithCallBack:(CallBack) callBack {
+-(void)addTaskCallBackWithCallBack:(CallBackModel *) callBack {
     if (self.fullData) {
-        callBack(self.fullData);
+        [callBack doCallBack:self.fullData];
     } else {
         [self.callBacks addObject:callBack];
         
     }
 }
 
--(void)removeTaskCallBackWithCallBack:(CallBack) callBack {
+-(void)removeTaskCallBackWithCallBack:(CallBackModel *) callBack {
     if ([self.callBacks containsObject:callBack]) {
         NSLog(@"-----");
     }

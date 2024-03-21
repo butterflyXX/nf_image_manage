@@ -13,7 +13,7 @@ const void *descriptionPtr = &descriptionPtr;
 @interface TaskDescription : NSObject
 
 @property(nonatomic, weak) FlutterImageTaskItem *task;
-@property(nonatomic, copy) CallBack callback;
+@property(nonatomic, weak) CallBackModel *callback;
 
 @end
 
@@ -39,10 +39,13 @@ const void *descriptionPtr = &descriptionPtr;
     if (description) {
         [description remove];
     }
-    FlutterImageTaskItem *task = [NFImageManage getFlutterImageWithImageName:imageName packageName:packageName compression:compression callBack:callBack];
+    CallBackModel *model = [[CallBackModel alloc] init];
+    model.key = self;
+    model.callBack = callBack;
+    FlutterImageTaskItem *task = [NFImageManage getFlutterImageWithImageName:imageName packageName:packageName compression:compression callBack:model];
     description = [[TaskDescription alloc] init];
     description.task = task;
-    description.callback = callBack;
+    description.callback = model;
     objc_setAssociatedObject(self, descriptionPtr, description, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
 }
 

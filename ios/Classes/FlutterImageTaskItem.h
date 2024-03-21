@@ -6,24 +6,20 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "CallBackModel.h"
 
-NS_ASSUME_NONNULL_BEGIN
-
-typedef void(^CallBack)(NSData *data);
 @interface FlutterImageTaskItem : NSObject
 
 @property(nonatomic, strong) NSMutableDictionary<NSString *,NSData *> *datas;
-@property(nonatomic, strong) NSMutableArray<CallBack> *callBacks;
+@property(nonatomic, strong) NSMutableArray<CallBackModel *> *callBacks;
 @property(nonatomic, assign) NSInteger length;
 @property(nonatomic, assign) NSInteger partCount;
 @property(nonatomic, strong) NSData *fullData;
 
 -(void)doTask;
 
--(void)addTaskCallBackWithCallBack:(CallBack) callBack;
+-(void)addTaskCallBackWithCallBack:(CallBackModel *) callBack;
 
--(void)removeTaskCallBackWithCallBack:(CallBack) callBack;
+-(void)removeTaskCallBackWithCallBack:(CallBackModel *) callBack;
 
 @end
-
-NS_ASSUME_NONNULL_END

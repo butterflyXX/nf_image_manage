@@ -41,7 +41,7 @@ static int kMaxCache = 1 << 4;
     return [self shared].tasks[key];
 }
 
--(FlutterImageTaskItem *)putTaskWithImageName:(NSString *)imageName callBack:(CallBack) callBack {
+-(FlutterImageTaskItem *)putTaskWithImageName:(NSString *)imageName callBack:(CallBackModel *) callBack {
     FlutterImageTaskItem *item = [[FlutterImageTaskItem alloc] init];
     [item addTaskCallBackWithCallBack:callBack];
     [self addTask:item key:imageName];
@@ -51,7 +51,7 @@ static int kMaxCache = 1 << 4;
 +(FlutterImageTaskItem *)getFlutterImageWithImageName:(NSString *)imageName
                                           packageName:(NSString *)packageName
                                           compression:(double) compression
-                                             callBack:(CallBack) callBack{
+                                             callBack:(CallBackModel *) callBack{
     FlutterImageTaskItem *task = [[self shared] doCacheWithKey:imageName callBack:callBack];
     if (!task) {
         task = [[self shared] putTaskWithImageName:imageName callBack:callBack];
@@ -69,7 +69,7 @@ static int kMaxCache = 1 << 4;
 }
 
 /// 缓存检查,如果有直接执行
--(FlutterImageTaskItem *)doCacheWithKey:(NSString *)key callBack:(CallBack) callBack {
+-(FlutterImageTaskItem *)doCacheWithKey:(NSString *)key callBack:(CallBackModel *) callBack {
     FlutterImageTaskItem *task = self.tasks[key];
     if (task) {
         [task addTaskCallBackWithCallBack:callBack];

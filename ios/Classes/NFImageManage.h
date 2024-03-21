@@ -20,7 +20,7 @@
 +(FlutterImageTaskItem *)getFlutterImageWithImageName:(NSString *)imageName
                                           packageName:(NSString *)packageName
                                           compression:(double) compression
-                                             callBack:(CallBack) callBack;
+                                             callBack:(CallBackModel *) callBack;
 
 +(FlutterImageTaskItem *)getTaskWithKey:(NSString *)key;
 
